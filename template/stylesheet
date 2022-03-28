@@ -1,0 +1,40 @@
+*{
+	border: none;
+	background-color: transparent;
+	color: ff;
+}
+
+QPushButton{
+	padding: 10px;
+	border-radius: 10px;
+	background-color: rgb(255, 255, 255);
+}
+QPushButton:hover{
+	background-color: rgb(0, 98, 144);
+}
+QToolBox{
+	text-align: left
+}
+QToolBox::tab{
+	border-radius: 5px;
+	background-color: #ffffff;
+	text-align: left
+}
+
+#centralwidget{
+	background-color: #040f13;
+}
+#leftMenuF{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.505682 rgba(14, 64, 81, 255), stop:1 rgba(0, 14, 43, 255));
+	border-radius: 10px;
+}
+#mainCentralBodyF{
+	background-color: #0e4051;
+	border-radius: 10px;
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.505682 rgba(14, 64, 81, 255), stop:1 rgba(0, 14, 43, 255));
+}
+#headerF {
+	/*background-color: #0e4051;*/
+	border-radius: 10px;
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 34, 64, 255), stop:1 rgba(255, 255, 255, 255))
+}
