@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1206</width>
-    <height>841</height>
+    <height>917</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -301,7 +301,7 @@
                   <x>0</x>
                   <y>0</y>
                   <width>162</width>
-                  <height>650</height>
+                  <height>726</height>
                  </rect>
                 </property>
                 <attribute name="icon">
@@ -395,8 +395,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>162</width>
-                  <height>650</height>
+                  <width>98</width>
+                  <height>78</height>
                  </rect>
                 </property>
                 <attribute name="icon">
@@ -512,7 +512,7 @@
               <item alignment="Qt::AlignTop">
                <widget class="QLabel" name="label_4">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -522,7 +522,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignLeft|Qt::AlignTop">
+              <item>
                <widget class="QFrame" name="frame_4">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -537,6 +537,13 @@
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                 <item>
+                  <widget class="QLabel" name="label_3">
+                   <property name="text">
+                    <string>Add / Delete row</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <widget class="QPushButton" name="add_row_bt">
                    <property name="text">
@@ -558,6 +565,19 @@
                      <normaloff>:/icons/cil-minus.png</normaloff>:/icons/cil-minus.png</iconset>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                 </layout>
                </widget>
@@ -603,7 +623,7 @@
                  <bool>true</bool>
                 </attribute>
                 <attribute name="verticalHeaderVisible">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </attribute>
                </widget>
               </item>
@@ -629,9 +649,22 @@
                  <bool>true</bool>
                 </attribute>
                 <attribute name="verticalHeaderVisible">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </attribute>
                </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>

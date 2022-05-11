@@ -1,4 +1,4 @@
 Account,Type,Janvier,Fevrier,Mars,Avril,Mai,Juin,Juillet,Aout,Septembre,Octobre,Novembre,Décembre
-Ing,CPP,0,0,0,0,0,0,0,0,0,0,0,0
-Paypal,CPP,0,500,5555,0,0,0,0,0,0,0,0,0
-Bourso,CPP,0,0,20,0,0,0,0,0,0,0,0,0
+Ing,CPP,0.0,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Paypal,CPP,0.0,500.0,500,50.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Bourso,Action,100.0,1000.0,1010,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
