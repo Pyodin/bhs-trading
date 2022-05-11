@@ -51,7 +51,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.MenuBt.clicked.connect(slideLeftMenu)
         self.home_bt.clicked.connect(
             lambda: self.stackedWidget.setCurrentWidget(self.page_2)
-        )
+        ).
+        
 
         load_account_info()
         self.model.dataChanged.connect(self.update_displayed_data)
