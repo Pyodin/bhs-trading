@@ -5,11 +5,7 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QPropertyAnimation, QEasingCurve
 import sys
 
-from AbstractTableModel import (
-    PandasModelPersisted,
-    PandasModeTotalWealth,
-    PandasPerCategory,
-)
+from AbstractTableModel import *
 
 # IMPORT GUI FILE
 import resource_rc
@@ -21,9 +17,12 @@ class MainWindow(QtWidgets.QMainWindow):
         uic.loadUi("main.ui", self)
 
         self.info_path = pathlib.Path("account_info") / "account.csv"
+        dataframe = pd.read_csv(self.info_path)
 
-        self.model = PandasModelPersisted(self.info_path)
+        self.model = PandasModelPersisted(dataframe)
+        self.comboDelegate = ComboDelegate(self)
         self.init_ui()
+        self.populate_ui()
 
     def init_ui(self):
         def slideLeftMenu():
@@ -37,34 +36,34 @@ class MainWindow(QtWidgets.QMainWindow):
             self.animation.setEasingCurve(QEasingCurve.InOutQuart)
             self.animation.start()
 
-        def load_account_info():
-            self.tableView.setModel(self.model)
-            self.update_displayed_data()
-
-        def delete_row():
-            if not self.tableView.selectedIndexes():
-                return
-            else:
-                index = self.tableView.selectedIndexes()[0].row()
-            self.model.removeRows(index)
-
         self.MenuBt.clicked.connect(slideLeftMenu)
         self.home_bt.clicked.connect(
             lambda: self.stackedWidget.setCurrentWidget(self.page_2)
-        ).
-        
+        )
 
-        load_account_info()
         self.model.dataChanged.connect(self.update_displayed_data)
         self.add_row_bt.clicked.connect(self.model.insertRows)
-        self.del_row_bt.clicked.connect(delete_row)
+        self.del_row_bt.clicked.connect(self.delete_row_from_model)
+
+    def populate_ui(self):
+        self.tableView.setModel(self.model)
+        self.tableView.setItemDelegateForColumn(1, self.comboDelegate)
+        self.update_displayed_data()
 
     def update_displayed_data(self):
+
         model_2 = PandasModeTotalWealth(self.info_path)
         self.tableView_2.setModel(model_2)
+        # self.tableView_2.verticalHeader().setSectionResizeMode(1, 300)
 
         model_3 = PandasPerCategory(self.info_path)
         self.tableView_3.setModel(model_3)
+
+    def delete_row_from_model(self):
+        if not self.tableView.selectedIndexes():
+            return
+        cpt = {index.row() for index in self.tableView.selectedIndexes()}
+        self.model.removeRows(self.tableView.selectedIndexes()[0].row(), len(cpt))
 
 
 if __name__ == "__main__":

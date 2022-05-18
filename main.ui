@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1206</width>
-    <height>917</height>
+    <height>703</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -301,7 +301,7 @@
                   <x>0</x>
                   <y>0</y>
                   <width>162</width>
-                  <height>726</height>
+                  <height>512</height>
                  </rect>
                 </property>
                 <attribute name="icon">
@@ -395,8 +395,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>78</height>
+                  <width>162</width>
+                  <height>512</height>
                  </rect>
                 </property>
                 <attribute name="icon">
@@ -590,6 +590,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="sizeAdjustPolicy">
+                 <enum>QAbstractScrollArea::AdjustToContents</enum>
+                </property>
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -602,13 +605,6 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Total wealth</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QTableView" name="tableView_2">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -616,9 +612,15 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="sizeAdjustPolicy">
+                 <enum>QAbstractScrollArea::AdjustToContents</enum>
+                </property>
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
+                <attribute name="horizontalHeaderVisible">
+                 <bool>true</bool>
+                </attribute>
                 <attribute name="horizontalHeaderStretchLastSection">
                  <bool>true</bool>
                 </attribute>
@@ -641,6 +643,9 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="sizeAdjustPolicy">
+                 <enum>QAbstractScrollArea::AdjustToContents</enum>
                 </property>
                 <property name="alternatingRowColors">
                  <bool>true</bool>
