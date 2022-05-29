@@ -1,35 +1,39 @@
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 import sys
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QTableView, QHeaderView, QVBoxLayout
-
-import pathlib
-from AbstractTableModel import *
 
 
-class MainWindow(QtWidgets.QMainWindow):
+class Window(QMainWindow):
+
     def __init__(self):
         super().__init__()
 
-        self.table = QtWidgets.QTableView()
+        self.setWindowTitle("Python ")
 
-        data = [
-          [4, 9, 2],
-          [1, 0, 0],
-          [3, 5, 0],
-          [3, 3, 2],
-          [7, 8, 9],
-        ]
+        self.setGeometry(100, 100, 600, 400)
 
-        self.model = PandasModelPersisted(pathlib.Path("account_info") / "account.csv")
-        self._delegate = ComboDelegate(self)
+        self.UiComponents()
 
-        self.table.setItemDelegateForColumn(1, self._delegate)
-        self.table.setModel(self.model)
-        self.setCentralWidget(self.table)
+        self.show()
+
+    def UiComponents(self):
+        self.combo_box = QComboBox(self)
+
+        self.combo_box.setGeometry(200, 150, 150, 30)
+
+        geek_list = ["Sayian", "Super Saiyan", "Super Sayian 2"]
+
+        self.combo_box.addItems(geek_list)
+
+        edit = QLineEdit(self)
+
+        self.combo_box.setLineEdit(edit)
 
 
-if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    app.exec_()
+App = QApplication(sys.argv)
+
+window = Window()
+
+sys.exit(App.exec()) 

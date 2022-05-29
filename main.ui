@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1206</width>
-    <height>703</height>
+    <height>864</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -217,7 +217,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
        <property name="spacing">
         <number>9</number>
        </property>
@@ -233,237 +233,6 @@
        <property name="bottomMargin">
         <number>9</number>
        </property>
-       <item>
-        <widget class="QFrame" name="leftMenuF">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>200</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
-          <property name="spacing">
-           <number>9</number>
-          </property>
-          <property name="leftMargin">
-           <number>9</number>
-          </property>
-          <property name="topMargin">
-           <number>9</number>
-          </property>
-          <property name="rightMargin">
-           <number>9</number>
-          </property>
-          <property name="bottomMargin">
-           <number>9</number>
-          </property>
-          <item>
-           <widget class="QFrame" name="frame_7">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
-              <widget class="QToolBox" name="toolBox">
-               <property name="currentIndex">
-                <number>0</number>
-               </property>
-               <property name="tabSpacing">
-                <number>6</number>
-               </property>
-               <widget class="QWidget" name="page_3">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>0</y>
-                  <width>162</width>
-                  <height>512</height>
-                 </rect>
-                </property>
-                <attribute name="icon">
-                 <iconset resource="good_icons/resource.qrc">
-                  <normaloff>:/icons/cil-chevron-bottom.png</normaloff>:/icons/cil-chevron-bottom.png</iconset>
-                </attribute>
-                <attribute name="label">
-                 <string>Portfollio managment </string>
-                </attribute>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
-                 <item alignment="Qt::AlignTop">
-                  <widget class="QFrame" name="frame">
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_7">
-                    <property name="spacing">
-                     <number>0</number>
-                    </property>
-                    <property name="leftMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>0</number>
-                    </property>
-                    <item>
-                     <widget class="QPushButton" name="home_bt">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>60</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>120</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Mongolian Baiti</family>
-                        <pointsize>10</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true"/>
-                      </property>
-                      <property name="text">
-                       <string>Home</string>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="good_icons/resource.qrc">
-                        <normaloff>:/icons/cil-home.png</normaloff>:/icons/cil-home.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>32</width>
-                        <height>32</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-               <widget class="QWidget" name="page_4">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>0</y>
-                  <width>162</width>
-                  <height>512</height>
-                 </rect>
-                </property>
-                <attribute name="icon">
-                 <iconset resource="good_icons/resource.qrc">
-                  <normaloff>:/icons/cil-chevron-bottom.png</normaloff>:/icons/cil-chevron-bottom.png</iconset>
-                </attribute>
-                <attribute name="label">
-                 <string>Stock analysis</string>
-                </attribute>
-                <layout class="QVBoxLayout" name="verticalLayout_6">
-                 <item alignment="Qt::AlignTop">
-                  <widget class="QFrame" name="frame_6">
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_8">
-                    <item>
-                     <widget class="QPushButton" name="pushButton_3">
-                      <property name="minimumSize">
-                       <size>
-                        <width>60</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>120</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Mongolian Baiti</family>
-                        <pointsize>8</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Stock analysis</string>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="good_icons/resource.qrc">
-                        <normaloff>:/icons/cil-lock-locked.png</normaloff>:/icons/cil-lock-locked.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>32</width>
-                        <height>32</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item>
         <widget class="QFrame" name="mainCentralBodyF">
          <property name="styleSheet">
@@ -563,6 +332,20 @@
                    <property name="icon">
                     <iconset resource="good_icons/resource.qrc">
                      <normaloff>:/icons/cil-minus.png</normaloff>:/icons/cil-minus.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="save_bt">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="good_icons/resource.qrc">
+                     <normaloff>:/icons/cil-save.png</normaloff>:/icons/cil-save.png</iconset>
                    </property>
                   </widget>
                  </item>

@@ -1,11 +1,15 @@
 # coding: utf-8
 import pathlib
+import time
 
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QPropertyAnimation, QEasingCurve
 import sys
 
+from PyQt5.QtWidgets import QMessageBox
+
 from AbstractTableModel import *
+from ComboDelegate import *
 
 # IMPORT GUI FILE
 import resource_rc
@@ -17,12 +21,14 @@ class MainWindow(QtWidgets.QMainWindow):
         uic.loadUi("main.ui", self)
 
         self.info_path = pathlib.Path("account_info") / "account.csv"
-        dataframe = pd.read_csv(self.info_path)
+        self.dataframe = pd.read_csv(self.info_path)
 
-        self.model = PandasModelPersisted(dataframe)
+        self.account_model = PandasModelPersisted(self.dataframe.copy())
+        self.evol_model = PandasModeTotalWealth(self.dataframe.copy())
+        self.detail_model = PandasPerCategory(self.dataframe.copy())
         self.comboDelegate = ComboDelegate(self)
+
         self.init_ui()
-        self.populate_ui()
 
     def init_ui(self):
         def slideLeftMenu():
@@ -37,33 +43,38 @@ class MainWindow(QtWidgets.QMainWindow):
             self.animation.start()
 
         self.MenuBt.clicked.connect(slideLeftMenu)
-        self.home_bt.clicked.connect(
-            lambda: self.stackedWidget.setCurrentWidget(self.page_2)
-        )
 
-        self.model.dataChanged.connect(self.update_displayed_data)
-        self.add_row_bt.clicked.connect(self.model.insertRows)
+        # Three button
+        self.add_row_bt.clicked.connect(self.account_model.insertRows)
         self.del_row_bt.clicked.connect(self.delete_row_from_model)
+        self.save_bt.clicked.connect(self.save_df)
 
-    def populate_ui(self):
-        self.tableView.setModel(self.model)
+        # Model view component
+        self.tableView.setModel(self.account_model)
+        self.tableView_2.setModel(self.evol_model)
+        self.tableView_3.setModel(self.detail_model)
+
+        self.account_model.dataChanged.connect(self.customModelChanged)
         self.tableView.setItemDelegateForColumn(1, self.comboDelegate)
-        self.update_displayed_data()
-
-    def update_displayed_data(self):
-
-        model_2 = PandasModeTotalWealth(self.info_path)
-        self.tableView_2.setModel(model_2)
-        # self.tableView_2.verticalHeader().setSectionResizeMode(1, 300)
-
-        model_3 = PandasPerCategory(self.info_path)
-        self.tableView_3.setModel(model_3)
 
     def delete_row_from_model(self):
+        # use currently
         if not self.tableView.selectedIndexes():
             return
         cpt = {index.row() for index in self.tableView.selectedIndexes()}
-        self.model.removeRows(self.tableView.selectedIndexes()[0].row(), len(cpt))
+        self.account_model.removeRows(self.tableView.selectedIndexes()[0].row(), len(cpt))
+
+    def customModelChanged(self):
+        df = self.account_model.getMyModel()
+        self.evol_model.resetMyModel(df)
+        self.detail_model.resetMyModel(df)
+        self.comboDelegate.model_updated()
+        self.save_bt.setEnabled(True)
+
+    def save_df(self):
+        df = self.account_model.getMyModel()
+        df.to_csv(self.info_path, index=False)
+        self.save_bt.setEnabled(False)
 
 
 if __name__ == "__main__":
