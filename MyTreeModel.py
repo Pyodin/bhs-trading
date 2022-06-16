@@ -9,8 +9,8 @@ from PyQt5.QtWidgets import QTreeView, QApplication
 class TreeItem(object):
     def __init__(self, data: list, parent=None):
         self.parentItem = parent
-        self.itemData = data
         self.childItems = []
+        self.itemData = data
 
     def child(self, row):
         return self.childItems[row]
@@ -83,15 +83,12 @@ class TreeItem(object):
         return True
 
 
-class mytreemodel(QAbstractItemModel):
+class Treemodel(QAbstractItemModel):
     def __init__(self, dataframe: pd.DataFrame, parent=None):
         QAbstractItemModel.__init__(self, parent)
 
+        self.rootItem = None
         self._dataframe = None
-
-        headers = dataframe.drop(["Account", "Type"], axis=1).columns.to_list()
-        self.rootItem = TreeItem(headers)
-
         self.setupModelData(dataframe)
 
     def columnCount(self, parent=QModelIndex()):
@@ -101,17 +98,19 @@ class mytreemodel(QAbstractItemModel):
         if not index.isValid():
             return None
 
-        if role != Qt.DisplayRole and role != Qt.EditRole:
-            return None
+        if role == Qt.SizeHintRole:
+            return QSize(2, 30)
 
         item = self.getItem(index)
-        return item.data(index.column())
+        value = item.data(index.column())
 
-    # def flags(self, index):
-    #     if not index.isValid():
-    #         return 0
-    #
-    #     return Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsSelectable
+        if role == Qt.TextAlignmentRole:
+            if index.column() > 0:
+                return Qt.AlignVCenter | Qt.AlignHCenter
+
+        if role == Qt.DisplayRole:
+            if value:
+                return item.data(index.column())
 
     def getItem(self, index):
         if index.isValid():
@@ -120,15 +119,18 @@ class mytreemodel(QAbstractItemModel):
                 return item
         return self.rootItem
 
+    def get_dataframe(self):
+        return self._dataframe
+
     def headerData(self, section, orientation, role=Qt.DisplayRole):
         if role == Qt.SizeHintRole:
-            return QSize(200, 39)
+            return QSize(100, 30)
+
+        if role == Qt.TextAlignmentRole:
+            return Qt.AlignVCenter | Qt.AlignHCenter
 
         if orientation == Qt.Horizontal:
             return str(self.rootItem.itemData[section])
-
-        # if orientation == Qt.Vertical:
-        #     return str(self.rootItem.itemData)
 
     def index(self, row, column, parent=QModelIndex()):
         if parent.isValid() and parent.column() != 0:
@@ -148,14 +150,13 @@ class mytreemodel(QAbstractItemModel):
 
         return success
 
-    # def insertRows(self, position, rows, parent=QModelIndex()):
-    #     parentItem = self.getItem(parent)
-    #     self.beginInsertRows(parent, position, position + rows - 1)
-    #     success = parentItem.insertChildren(position, rows,
-    #             self.rootItem.columnCount())
-    #     self.endInsertRows()
-    #
-    #     return success
+    def insertRows(self, position, rows, parent=QModelIndex()):
+        parentItem = self.getItem(parent)
+        self.beginInsertRows(parent, position, position + rows - 1)
+        success = parentItem.insertChildren(position, self.rootItem.columnCount())
+        self.endInsertRows()
+
+        return success
 
     def parent(self, index):
         if not index.isValid():
@@ -215,39 +216,40 @@ class mytreemodel(QAbstractItemModel):
         return result
 
     def setupModelData(self, df):
-        # self._dataframe = df.groupby("Type").sum()
-        _dataframe = df.groupby("Type").sum().transpose()
-        _dataframe["Total"] = _dataframe.sum(axis=1)
+        self.beginResetModel()
 
-        for i, type in enumerate(_dataframe.columns):
-            self.rootItem.insertChildren(self.rootItem.childCount(), _dataframe[type].to_list())
-            self.rootItem.child(self.rootItem.childCount()-1).insertChildren(0, _dataframe[type].to_list())
+        headers = df.columns.drop("Account")
+        self.rootItem = TreeItem(headers)
 
-            _dataframe[f"{type}_Evolution"] = _dataframe[type] - _dataframe[type].shift(1)
-            _dataframe[f"{type}_%"] = _dataframe[type] / _dataframe["Total"] * 100
+        self._dataframe = df.groupby("Type").sum().transpose()
+        self._dataframe["Total"] = self._dataframe.sum(axis=1)
 
-            for j, new_type in enumerate([f"{type}_Evolution", f"{type}_%"]):
-                d = _dataframe[new_type].to_list()
-                print(i)
+        for i, type in enumerate(self._dataframe.columns):
+            data = self._dataframe[type].to_list()
+            data.insert(0, type)
+            self.rootItem.insertChildren(self.rootItem.childCount(), data)
+
+            evol = ["Evolution"] + (self._dataframe[type] - self._dataframe[type].shift(1)).to_list()
+            percent = ["% portfollio"] + (self._dataframe[type] / self._dataframe["Total"] * 100).to_list()
+
+            for lst in [evol, percent]:
                 self.rootItem.child(i).insertChildren(
-                    self.rootItem.child(i).childCount(),
-                    d)
+                    self.rootItem.child(i).childCount(), lst
+                )
 
-            #     for l, new_col in enumerate(d):
-            #         self.rootItem.child(
-            #             self.rootItem.child(i).childCount() - 1
-            #         ).setData(l, new_col)
+        self.endResetModel()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     app = QApplication(sys.argv)
 
     info_path = pathlib.Path("account_info") / "account.csv"
-    account_model = mytreemodel(pd.read_csv(info_path))
+    account_model = Treemodel(pd.read_csv(info_path))
 
     treeView = QTreeView()
     treeView.setModel(account_model)
+    treeView.setColumnWidth(0, 200)
 
     treeView.show()
     sys.exit(app.exec_())

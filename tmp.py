@@ -1,39 +1,53 @@
-from PyQt5.QtWidgets import *
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
+from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
+from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtCore import Qt
 
 
 class Window(QMainWindow):
-
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Python ")
-
-        self.setGeometry(100, 100, 600, 400)
-
-        self.UiComponents()
+        self.setWindowTitle("PyQtChart Pie Chart")
+        self.setGeometry(100, 100, 1280, 600)
 
         self.show()
 
-    def UiComponents(self):
-        self.combo_box = QComboBox(self)
+        self.create_piechart()
 
-        self.combo_box.setGeometry(200, 150, 150, 30)
+    def create_piechart(self):
+        series = QPieSeries()
+        series.append("Python", 80)
+        series.append("C++", 70)
+        series.append("Java", 50)
+        series.append("C#", 40)
+        series.append("PHP", 30)
 
-        geek_list = ["Sayian", "Super Saiyan", "Super Sayian 2"]
+        # adding slice
+        slice = QPieSlice()
+        slice = series.slices()[2]
+        slice.setExploded(True)
+        slice.setLabelVisible(True)
+        slice.setPen(QPen(Qt.darkGreen, 2))
+        slice.setBrush(Qt.green)
 
-        self.combo_box.addItems(geek_list)
+        chart = QChart()
+        chart.legend().hide()
+        chart.addSeries(series)
+        chart.createDefaultAxes()
+        chart.setAnimationOptions(QChart.SeriesAnimations)
+        chart.setTitle("Pie Chart Example")
 
-        edit = QLineEdit(self)
+        chart.legend().setVisible(True)
+        chart.legend().setAlignment(Qt.AlignBottom)
 
-        self.combo_box.setLineEdit(edit)
+        chartview = QChartView(chart)
+        chartview.setRenderHint(QPainter.Antialiasing)
+
+        self.setCentralWidget(chartview)
 
 
 App = QApplication(sys.argv)
-
 window = Window()
-
-sys.exit(App.exec()) 
+sys.exit(App.exec_())

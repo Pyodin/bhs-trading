@@ -1,6 +1,21 @@
-
 from PyQt5.QtCore import Qt, QModelIndex
 from PyQt5.QtWidgets import QComboBox, QLineEdit, QStyledItemDelegate
+
+
+class BorderDelegate(QStyledItemDelegate):
+    def __init__(self, parent):
+        super(BorderDelegate, self).__init__(parent)
+        self.parent = parent
+
+    def paint(self, painter, option, index):
+        painter.setPen(Qt.red)
+        rect = option.rect
+
+        if index.column() == 0:
+            painter.drawLine(rect.topLeft(), rect.bottomLeft())
+
+        if index.column() == index.model().columnCount() - 1:
+            painter.drawLine(rect.topRight(), rect.bottomRight())
 
 
 class ComboDelegate(QStyledItemDelegate):
@@ -11,7 +26,9 @@ class ComboDelegate(QStyledItemDelegate):
     def __init__(self, parent):
         super(ComboDelegate, self).__init__(parent)
         self.parent = parent
-        self.columns = list(set(self.parent.account_model.getMyModel().Type.to_list()))
+        self.columns = list(
+            set(self.parent.account_model.get_dataframe().Type.to_list())
+        )
 
     def createEditor(self, parent, option, index):
         combobox = QComboBox(parent)
@@ -29,28 +46,6 @@ class ComboDelegate(QStyledItemDelegate):
         model.setData(index, value, Qt.EditRole)
 
     def model_updated(self):
-        self.columns = list(set(self.parent.account_model.getMyModel().Type.to_list()))
-
-#
-# if __name__ == '__main__':
-#     import sys
-#     import pathlib
-#     import pandas as pd
-#     from AbstractTableModel import *
-#     from PyQt5.QtWidgets import QItemDelegate, QComboBox, QLineEdit, QTableView, QApplication
-#
-#     app = QApplication(sys.argv)
-#
-#     info_path = pathlib.Path("account_info") / "account.csv"
-#     account_model = PandasModelPersisted(pd.read_csv(info_path))
-#
-#     tableView = QTableView()
-#     tableView.setModel(account_model)
-#
-#     delegate = ComboDelegate(app)
-#
-#     tableView.setItemDelegateForColumn(1, delegate)
-#     tableView.resizeRowsToContents()
-#
-#     tableView.show()
-#     sys.exit(app.exec_())
+        self.columns = list(
+            set(self.parent.account_model.get_dataframe().Type.to_list())
+        )

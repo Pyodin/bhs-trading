@@ -163,6 +163,12 @@ class TreeModel(QAbstractItemModel):
         return self.rootItem
 
     def headerData(self, section, orientation, role=Qt.DisplayRole):
+        if role == Qt.SizeHintRole:
+            if section == 0:
+                return QSize(200, 39)
+            else:
+                return QSize(20, 39)
+
         if orientation == Qt.Horizontal:
             return self.rootItem.data(section)
 
