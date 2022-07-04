@@ -27,7 +27,7 @@ class ComboDelegate(QStyledItemDelegate):
         super(ComboDelegate, self).__init__(parent)
         self.parent = parent
         self.columns = list(
-            set(self.parent.account_model.get_dataframe().Type.to_list())
+            set(self.parent.dataframe.Type.to_list())
         )
 
     def createEditor(self, parent, option, index):

@@ -169,7 +169,7 @@ class TreeModel(QAbstractItemModel):
                     break
                 position += 1
 
-            lineData = lines[number][position:].trimmed()
+            lineData = lines[number][position:]
 
             if lineData:
                 # Read the column data from the rest of the line.
@@ -200,10 +200,10 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
 
-    f = QFile(':/default.txt')
-    f.open(QIODevice.ReadOnly)
-    model = TreeModel(f.readAll())
-    f.close()
+    with open("default.txt", 'r') as f:
+        data = f.read()
+        print(data)
+        model = TreeModel(data)
 
     view = QTreeView()
     view.setModel(model)
